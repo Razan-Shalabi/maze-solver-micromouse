@@ -90,9 +90,6 @@ With the chassis built, components wired, and the algorithm proven, it all came 
 
 Want the full day-by-day story, including early struggles and every decision along the way? Check out the [Trello board](https://trello.com/invite/b/69e2683745c4a1b255d148a3/ATTI001aa2c3a295a99a65e10da04925d9e88B10C430/interface-project).
 
-## Security Note
-
-This repository contains no credentials, API keys, or WiFi passwords. WiFi setup happens entirely on-device via WiFiManager's captive portal — nothing is hardcoded in the firmware.
 
 ## License
 
