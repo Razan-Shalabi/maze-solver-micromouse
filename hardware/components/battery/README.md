@@ -1,7 +1,7 @@
 # Power: 18650 Li-ion Battery + Charger
 
-![18650 battery](battery-18650.jpeg)
-![Type-C charger module](battery-charger.jpeg)
+<img src="battery-18650.jpeg" width="200">
+<img src="battery-charger.jpeg" width="200">
 
 ## What is this?
 

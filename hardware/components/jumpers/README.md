@@ -1,6 +1,6 @@
 # Jumper Wires
 
-![Jumper wires](jumpers.webp)
+<img src="jumpers.webp" width="200">
 
 ## What is this?
 

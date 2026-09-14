@@ -1,6 +1,6 @@
 # MPU-6050 (Gyroscope + Accelerometer)
 
-![MPU-6050](mpu6050.jpeg)
+<img src="mpu6050.jpeg" width="200">
 
 ## What is this?
 

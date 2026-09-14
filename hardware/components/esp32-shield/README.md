@@ -1,6 +1,6 @@
 # ESP32 30-Pin Expansion Board
 
-![ESP32 expansion shield](esp32-shield.jpg)
+<img src="esp32-shield.jpg" width="200">
 
 ## What is this?
 

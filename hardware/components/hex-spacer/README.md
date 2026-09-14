@@ -1,6 +1,6 @@
 # M3 Nylon Hex Spacer
 
-![Hex spacer](hex-spacer.jpg)
+<img src="hex-spacer.jpg" width="200">
 
 ## What is this?
 

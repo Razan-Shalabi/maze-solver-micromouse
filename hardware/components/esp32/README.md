@@ -1,6 +1,6 @@
 # ESP32 Dev Kit (30-pin)
 
-![ESP32 dev kit](esp32-devkit.jpeg)
+<img src="esp32-devkit.jpeg" width="200">
 
 ## What is this?
 

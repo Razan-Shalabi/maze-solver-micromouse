@@ -1,6 +1,6 @@
 # Small Ball Caster Wheel
 
-![Caster wheel](caster-wheel.jpeg)
+<img src="caster-wheel.jpeg" width="200">
 
 ## What is this?
 

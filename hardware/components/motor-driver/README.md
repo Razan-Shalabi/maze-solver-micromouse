@@ -1,6 +1,6 @@
 # DRV8833 Motor Driver
 
-![DRV8833 2-channel motor driver](drv8833.jpeg)
+<img src="drv8833.jpeg" width="200">
 
 ## What is this?
 

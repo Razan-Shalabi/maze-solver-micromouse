@@ -1,6 +1,6 @@
 # VL53L0X Time-of-Flight Sensors (×3)
 
-![VL53L0X ToF sensor](vl53l0x.jpg)
+<img src="vl53l0x.jpg" width="200">
 
 ## What is this?
 

@@ -1,6 +1,6 @@
 # N20 Magnetic Encoder
 
-![N20 motor with encoder](n20-encoder.jpg)
+<img src="n20-encoder.jpg" width="200">
 
 ## What is this?
 
