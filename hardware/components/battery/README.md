@@ -12,6 +12,3 @@ Main power source for the robot, plus the module used to recharge it.
 - **Battery:** Li-ion 18650 cell
 - **Charger:** Type-C, 15W, 3A charging module
 
-## Notes
-
-- Powers the motors (via the DRV8833) and the ESP32 separately from USB — check your regulator/voltage setup if running the ESP32 directly off this cell, since it needs a stable 3.3–5V.

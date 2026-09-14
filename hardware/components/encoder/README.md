@@ -53,16 +53,3 @@ interrupts();
 - `moveContinuousForward()` — encoder difference (`dL + dR`) feeds the PID loop to keep both wheels in sync
 - `CELL_TICKS` (currently `250`) — how many ticks equal one maze cell of forward travel
 
-## Troubleshooting
-
-**No ticks registering:**
-- Check VCC is at 3.3V (not 5V — can damage the ESP32 GPIO if wired wrong)
-- Verify C1 is on an interrupt-capable pin
-- Rotate the wheel by hand — you should see `leftTicks`/`rightTicks` change in Serial output
-
-**Ticks only counting up, never down:**
-- Confirm C2 is actually wired — without it, direction can't be detected and the ISR always increments
-
-**Erratic/jumpy counts:**
-- Check for loose jumper wires
-- Route encoder wires away from the motor leads (motor noise can trigger false pulses)

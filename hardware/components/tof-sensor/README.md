@@ -49,18 +49,7 @@ void readToFs() {
 
 ## Specifications
 
-- **Front stop distance:** `FRONT_STOP` = 100mm (how close before treating front as blocked)
+- **Front stop distance:** `FRONT_STOP` = 100mm 
 - **Wall detection threshold:** `WALL_THRESHOLD` = 200mm
 - **Side wall target distance:** `SIDE_TARGET_MM` = 45mm
 
-## Troubleshooting
-
-**"ERROR: [X] ToF sensor not detected" on boot:**
-- Check that sensor's XSHUT and I2C wiring
-- Make sure no two sensors ended up with the same address (usually means one XSHUT wire is loose)
-
-**Readings stuck at 2000:**
-- That's the code's fallback for a timeout/invalid reading — check the sensor isn't obstructed or miswired
-
-**Inconsistent side-wall corrections:**
-- Adjust `LEFT_OFFSET` / `RIGHT_OFFSET` — these calibrate for slight mounting asymmetry between the two side sensors

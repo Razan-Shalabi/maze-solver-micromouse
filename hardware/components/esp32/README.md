@@ -22,11 +22,3 @@ All sensor and motor pins connect here — see each component's own page (`encod
 - `setup()` — initializes motors, encoders, ToF sensors, WiFi, and the web server
 - `loop()` — handles incoming web requests and runs the active solve/return/speedrun mode every 20ms
 
-## Troubleshooting
-
-**Can't reach the setup portal:**
-- Look for a WiFi network called `TOOTs-Setup` and connect to it, or manually browse to `192.168.4.1`
-- If it's forgotten your WiFi, uncomment `wm.resetSettings();` in `setup()` once to force the portal again, then re-comment it
-
-**Can't reach `toots.local`:**
-- Not all networks/devices support mDNS — check the Serial monitor for the IP address instead and use that directly

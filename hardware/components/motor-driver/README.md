@@ -40,13 +40,3 @@ void setMotor(int leftSpeed, int rightSpeed) {
 - `setMotor(leftSpeed, rightSpeed)` is the single point everything else calls — PID output, wall correction, and turning all funnel through it
 - `stopMotorsOnly()` → `setMotor(0, 0)`
 
-## Troubleshooting
-
-**Motor spins the wrong way:**
-- Swap that motor's two IN pins in wiring, or flip the sign in code for that side
-
-**One wheel is weaker than the other at the same speed:**
-- Check `BASE_CORRECTION` (currently `3`) — this exists specifically to compensate for a slight speed mismatch between the two motors
-
-**No movement at all:**
-- Confirm the driver has its separate motor power supply connected (DRV8833 logic and motor power are usually separate) — not just the ESP32's 3.3V line
