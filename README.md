@@ -1,96 +1,98 @@
-# 🐭 Toots — Autonomous Micromouse
+# Toots — Autonomous Micromouse Robot
 
-An autonomous maze-solving robot built from scratch — custom 3D-printed chassis, ESP32 firmware in C++, and a floodfill algorithm that finds its way through an 8×8 maze without any human input.
+An autonomous maze-solving robot built on an ESP32, using a floodfill algorithm, PID-corrected motor control, and time-of-flight wall sensing to navigate an 8×8 maze without human input.
 
-**Team:** Razan Shalabi · Shatha Abualrub · Lara Daifallah · Ghada Swalha
+**Team:** Razan Shalabi, Shatha Abualrub, Lara Daifallah, Ghada Swalha
 **Instructor:** Wasel Ghanem
-**University:** Birzeit University
+**Institution:** Birzeit University
 
----
+<img src="media/speedrun.gif" width="360">
 
-## What This Project Does
+*Toots completing a speed-run pass after the exploration phase.*
 
-Toots navigates an 8×8 cell maze on its own. It:
+## Overview
 
-1. **Senses** walls in real time using three VL53L0X ToF sensors (front, left, right)
-2. **Tracks movement** using magnetic wheel encoders on both N20 motors
-3. **Plans** the shortest path using the Floodfill (BFS) algorithm
-4. **Drives** with PID-corrected motor control, staying centered between walls as it goes
-5. **Hosts a live web dashboard** — connect over WiFi and watch it think in real time, or tune parameters on the fly
+Toots explores an 8×8 maze, builds a map of its walls, and computes the shortest path to the center. It then executes that path at higher speed on a return run. Core capabilities:
 
-Everything — wiring, chassis design, and firmware — was designed and built by the team.
+- Real-time wall detection using three VL53L0X time-of-flight sensors
+- Wheel odometry via interrupt-driven magnetic encoders
+- Shortest-path planning with a floodfill (BFS) solver
+- PID-corrected differential drive to maintain heading between walls
+- A web dashboard, served directly from the ESP32, for live monitoring and parameter tuning
 
 ## Documentation
 
-| Resource | Link |
+| Resource | Description |
 |---|---|
-| 🔧 Hardware & Components | [`hardware/README.md`](hardware/README.md) |
-| 🖨️ 3D Models (STL + Fusion 360) | [`hardware/3d-models/`](hardware/3d-models/README.md) |
-| 💻 Firmware & Architecture | [`software/README.md`](software/README.md) |
-| 📋 Full Build Log | [Trello Board](https://trello.com/invite/b/69e2683745c4a1b255d148a3/ATTI001aa2c3a295a99a65e10da04925d9e88B10C430/interface-project) |
+| [`hardware/README.md`](hardware/README.md) | Full parts list, pin map, and per-component wiring notes |
+| [`hardware/3d-models/`](hardware/3d-models/README.md) | Chassis STL file and Fusion 360 source |
+| [`software/README.md`](software/README.md) | Firmware architecture, run modes, dashboard API, tunable parameters |
+| [Trello board](https://trello.com/invite/b/69e2683745c4a1b255d148a3/ATTI001aa2c3a295a99a65e10da04925d9e88B10C430/interface-project) | Full project build log |
 
-## Hardware Stack
+## Hardware Summary
 
 | Component | Part | Role |
 |---|---|---|
-| MCU | ESP32 Dev Kit | Runs firmware + web dashboard |
-| Motor Driver | DRV8833 | Drives both N20 motors |
-| Motors | N20 DC w/ Encoder, 6V 530 RPM | Differential drive + speed feedback |
-| ToF Sensors ×3 | VL53L0X | Wall detection: front, left, right |
-| Chassis | Custom 3D-printed | Compact, maze-optimized |
+| MCU | ESP32 Dev Kit | Runs firmware and web dashboard |
+| Motor driver | DRV8833 | Drives both motors |
+| Motors | N20 DC with magnetic encoder, 6V, 530 RPM | Differential drive with speed feedback |
+| Distance sensors | VL53L0X ×3 | Front, left, right wall detection |
+| Chassis | Custom 3D-printed | Sized to maze cell constraints |
 
-Full parts list with photos and wiring: [`hardware/README.md`](hardware/README.md)
+Full specifications and wiring: [`hardware/README.md`](hardware/README.md)
 
 ## How It Works
 
-- **Wall sensing** — three ToF sensors feed `getWallCorrection()`, which steers the robot to stay centered between walls (or a fixed distance from a single wall) while driving forward
-- **Movement tracking** — interrupt-driven encoder ticks on both wheels feed a PID loop that keeps the two motors in sync
-- **Path planning** — a floodfill (BFS) solver computes the shortest path to the maze center as it explores, and re-solves as new walls are discovered
-- **WiFi setup** — no hardcoded credentials. On first boot, the ESP32 opens a `TOOTs-Setup` access point; connecting to it lets you pick your WiFi network and enter the password once, saved to flash for every future boot
-- **Live dashboard** — reachable at `http://toots.local` (or by IP), showing live sensor readings, position, and mode, with sliders to tune PID/turn/wall parameters without re-flashing
+**Wall sensing.** Three ToF sensors feed a correction function that keeps the robot centered between walls, or at a fixed offset from a single wall, while driving forward.
 
-Full breakdown of run modes, the dashboard API, and every tunable parameter: [`software/README.md`](software/README.md)
+**Motion tracking.** Interrupt-driven encoder ticks on both wheels are compared through a PID loop to keep the two motors synchronized.
 
-## Quick Start
+**Path planning.** A floodfill (BFS) solver computes the shortest path to the maze center as the robot explores, and recomputes as new walls are discovered.
 
-**Prerequisites:**
-- Arduino IDE with the ESP32 board package installed
-- Libraries: `WiFiManager` (tzapu), `VL53L0X`, `ESPmDNS` (built into the ESP32 core)
+**Connectivity.** WiFi credentials are never hardcoded. On first boot, the ESP32 opens a setup access point (`TOOTs-Setup`); the operator selects a network and enters credentials once, which are then stored to flash.
+
+**Monitoring.** A dashboard served at `http://toots.local` shows live sensor data, current position, and run mode, with controls to tune PID, turn timing, and wall-following parameters without re-flashing.
+
+Full technical detail: [`software/README.md`](software/README.md)
+
+## Getting Started
+
+**Requirements:**
+- Arduino IDE with the ESP32 board package
+- Libraries: `WiFiManager` (tzapu), `VL53L0X`, `ESPmDNS` (bundled with the ESP32 core)
 
 **Steps:**
 1. Open `software/toots.ino` in the Arduino IDE
-2. Select your ESP32 board and port
+2. Select the correct ESP32 board and port
 3. Upload
-4. On first boot, connect to the `TOOTs-Setup` WiFi network it creates, and enter your home WiFi credentials
-5. Visit `http://toots.local` (or the IP shown in Serial output) to see the live dashboard
+4. On first boot, connect to the `TOOTs-Setup` network and enter your WiFi credentials
+5. Open `http://toots.local` (or the IP shown in Serial output) to access the dashboard
 
 ## Repository Structure
 
 ```
 maze-solver-micromouse/
 ├── README.md
+├── media/
+│   └── speedrun.gif
 ├── software/
-│   ├── README.md               ← architecture, modes, API, tunable parameters
-│   └── toots.ino                ← firmware
+│   ├── README.md
+│   └── toots.ino
 └── hardware/
-    ├── README.md                ← full parts table + pin map
-    ├── components/               ← per-component docs (wiring, code usage, troubleshooting)
-    └── 3d-models/                ← chassis STL + Fusion 360 link
+    ├── README.md
+    ├── components/
+    └── 3d-models/
 ```
 
-## The Journey
+## Background
 
-It started with a pile of components arriving — motors, sensors, the ESP32, all still in their static bags. Once everything was in hand, the team sat down together to figure out how it would all fit together.
+The project began with component selection and procurement, followed by chassis design in Fusion 360, built to fit within maze cell constraints while keeping weight low enough not to strain the motors. The chassis was 3D-printed and assembled alongside firmware development.
 
-The chassis was modeled in Fusion 360 before ever touching a printer — laid out to fit within the maze cell constraints while staying light enough not to load down the N20 motors. It was then printed for free at Blue Dome, keeping the build's cost down.
+The floodfill solving logic was validated in simulation before deployment to hardware, to confirm correctness of the algorithm independent of sensor noise or mechanical variance.
 
-Before the physical robot ever moved through a real maze, the floodfill (BFS) solving logic was tested in simulation, mapping out the shortest path across the 8×8 grid to confirm the algorithm worked before trusting it to real hardware.
-
-With the chassis built, components wired, and the algorithm proven, it all came together into Toots — sensing its way through a maze with three ToF sensors, tracking its own movement, and finding the center without any human input.
-
-Want the full day-by-day story, including early struggles and every decision along the way? Check out the [Trello board](https://trello.com/invite/b/69e2683745c4a1b255d148a3/ATTI001aa2c3a295a99a65e10da04925d9e88B10C430/interface-project).
+A full build log, including design decisions and iteration history, is maintained on the [Trello board](https://trello.com/invite/b/69e2683745c4a1b255d148a3/ATTI001aa2c3a295a99a65e10da04925d9e88B10C430/interface-project).
 
 
 ## License
 
-This project is submitted as academic coursework. You're welcome to study, fork, and learn from it — just note we're students and still learning, so double-check everything.
+Submitted as academic coursework. The code is available to study and reference.
