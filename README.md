@@ -3,7 +3,9 @@
 An autonomous maze-solving robot built on an ESP32, using a floodfill algorithm, PID-corrected motor control, and time-of-flight wall sensing to navigate an 8×8 maze without human input.
 
 **Team:** Razan Shalabi, Shatha Abualrub, Lara Daifallah, Ghada Swalha
+
 **Instructor:** Wasel Ghanem
+
 **Institution:** Birzeit University
 
 <img src="media/speedrun.gif" width="360">
